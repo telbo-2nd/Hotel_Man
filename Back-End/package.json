@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "joi": "^18.1.2",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.0",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.7",
+    "sequelize": "^6.37.8",
+    "socket.io": "^4.8.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed:config": "node seeders/hotelConfigSeeder.js",
+    "seed:admin": "node seeders/adminSeeder.js",
+    "seed:roomtypes": "node seeders/roomTypeSeeder.js",
+    "seed:rooms": "node seeders/roomSeeder.js",
+    "seed:services": "node seeders/serviceSeeder.js",
+    "seed:guests": "node seeders/guestSeeder.js",
+    "seed:receptionists": "node seeders/receptionistSeeder.js",
+    "seed:bookings": "node seeders/bookingSeeder.js",
+    "seed:all": "node seeders/adminSeeder.js && node seeders/roomTypeSeeder.js && node seeders/roomSeeder.js && node seeders/serviceSeeder.js && node seeders/guestSeeder.js && node seeders/receptionistSeeder.js && node seeders/bookingSeeder.js"
+  }
+}
