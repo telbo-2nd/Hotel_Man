@@ -22,7 +22,7 @@ const io = new Server(server, {
 
 app.set("io", io);
 
-// ── Socket auth middleware ───────────────────────────────────────────────────
+
 io.use((socket, next) => {
     const token = socket.handshake.auth?.token;
     if (!token) return next(new Error("Unauthorized"));
@@ -39,18 +39,15 @@ io.use((socket, next) => {
 
 io.on("connection", (socket) => {
     const user = socket.user;
-    console.log(`🔌 ${user.name} connected — role: ${user.role}`);
+    console.log(` ${user.name} connected — role: ${user.role}`);
 
-    // admins join a special room to receive all status broadcasts
     if (user.role === "admin") {
         socket.join("admins");
-        console.log(`👑 ${user.name} joined admins room`);
+        console.log(` ${user.name} joined admins room`);
     }
 
-    // staff join their own room for targeted messages
     socket.join(`user:${user.id}`);
 
-    // broadcast to admins that this staff member came online
     socket.to("admins").emit("staff:online", {
         userId:    user.id,
         name:      user.name,
@@ -59,7 +56,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        console.log(`❌ ${user.name} disconnected`);
+        console.log(` ${user.name} disconnected`);
         // broadcast to admins
         socket.to("admins").emit("staff:offline", {
             userId:    user.id,

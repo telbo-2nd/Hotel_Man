@@ -36,10 +36,12 @@ export default function StaffDetails() {
 
     const editForm = useForm({ defaultValues: { schedule: [] } });
     const pwForm   = useForm();
+    
+    const { data: allStatuses } = useAllActiveStatuses();
 
     if (isLoading) return <div className="flex items-center justify-center h-64"><Spinner /></div>;
     if (!staff)    return <div className="text-center py-16 text-gray-400">Staff member not found.</div>;
-
+    
     const handleEdit = (data) => {
         updateStaff({ id, data }, { onSuccess: () => setEditModal(false) });
     };
@@ -67,7 +69,6 @@ export default function StaffDetails() {
         });
         setEditModal(true);
     };
-    const { data: allStatuses } = useAllActiveStatuses();
     const liveStatus = allStatuses?.find((s) => s.staffId === id) 
     || { status: staff.auxStatus, startedAt: staff.auxStatusChangedAt };
 

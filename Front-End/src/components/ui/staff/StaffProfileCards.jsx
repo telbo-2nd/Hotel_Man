@@ -2,9 +2,11 @@ import { Pencil, RotateCcw } from "lucide-react";
 import Button from "../Button";
 import { initials, STATUS_COLOR, AUX_LABEL } from "./helpers";
 import StatusTimer from "../StatusTimer";
-
+import { useSocket } from "../../../context/SocketContext";
 export default function StaffProfileCard({ staff, liveStatus, onEdit, onResetPassword, onTerminate }) {
     const isTerminated = staff.employmentStatus === "terminated";
+    const { onlineStaff } = useSocket();
+    const isOnline = !!onlineStaff[staff.id];
     const currentAux   = liveStatus?.status || staff.auxStatus;
     
     // map to color — add this inside the component
@@ -29,7 +31,7 @@ export default function StaffProfileCard({ staff, liveStatus, onEdit, onResetPas
                         {initials(staff.Firstname, staff.Lastname)}
                     </div>
                 )}
-                {!isTerminated && (
+                {!isTerminated && isOnline &&(
                     <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white" />
                 )}
             </div>

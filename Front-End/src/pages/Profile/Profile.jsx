@@ -34,7 +34,7 @@ export default function Profile() {
     const activeStatus  = STATUS_OPTIONS.find((s) => s.value === liveAuxStatus) || STATUS_OPTIONS[0];
 
     const handleStatusChange = (newStatus) => {
-        if (newStatus === user?.auxStatus) return;
+        if (newStatus === liveAuxStatus) return;
         changeStatusFn({ status: newStatus });
     };
 
@@ -53,6 +53,7 @@ export default function Profile() {
     };
 
     const initials = `${user?.Firstname?.[0] || ""}${user?.Lastname?.[0] || ""}`.toUpperCase();
+    console.log(currentStatus);
 
     return (
         <div className="space-y-5 max-w-4xl">
@@ -157,7 +158,7 @@ export default function Profile() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {STATUS_OPTIONS.map((option) => {
-                                const isActive = user?.auxStatus === option.value;
+                                const isActive = liveAuxStatus === option.value;
                                 return (
                                     <button
                                         key={option.value}

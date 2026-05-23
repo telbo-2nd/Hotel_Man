@@ -17,7 +17,7 @@ exports.getAdminDashboard = async () => {
     const monthlyRevenueResult = await Booking.sum("totalPrice", {
         where: {
             status: { [Op.notIn]: ["cancelled", "pending"] },
-            createdAt: { [Op.between]: [startOfMonth, endOfMonth] },
+            checkInDate: { [Op.between]: [startOfMonth, endOfMonth] },
         },
     });
 
@@ -93,7 +93,7 @@ exports.getAdminDashboard = async () => {
         const revenue = await Booking.sum("totalPrice", {
             where: {
                 status: { [Op.notIn]: ["cancelled", "pending"] },
-                createdAt: { [Op.between]: [start, end] },
+                checkInDate: { [Op.between]: [start, end] },
             },
         });
 

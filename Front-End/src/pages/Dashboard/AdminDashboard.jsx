@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,Cell  } from "recharts";
 import { DollarSign, Users, BedDouble, TrendingUp, Star, ConciergeBell } from "lucide-react";
 import { useAdminDashboard } from "../../hooks/useDashboard";
 import StatCard from "../../components/ui/StatCard";
@@ -16,6 +16,8 @@ export default function AdminDashboard() {
             Failed to load dashboard data
         </div>
     );
+    console.log(data.revenueByMonth);
+    const BAR_COLORS = ["#6366f1", "#3b82f6", "#06b6d4", "#10b981", "#f59e0b", "#1a3a6e"];
 
     return (
         <div className="space-y-6">
@@ -46,6 +48,7 @@ export default function AdminDashboard() {
                     icon={TrendingUp}
                     color="green"
                 />
+                
                 <StatCard
                     title="Total Guests"
                     value={data.guests.total}
@@ -96,7 +99,12 @@ export default function AdminDashboard() {
                                     fontSize: "13px",
                                 }}
                             />
-                            <Bar dataKey="revenue" fill="#1a3a6e" radius={[6, 6, 0, 0]} />
+                            
+                            <Bar dataKey="revenue" radius={[6, 6, 0, 0]}>
+                                {data.revenueByMonth.map((_, index) => (
+                                    <Cell key={index} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+                                ))}
+                            </Bar>
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
